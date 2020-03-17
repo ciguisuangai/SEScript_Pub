@@ -2,16 +2,26 @@
 InventoryLCD by 次硅酸钙
 20-03-17 version 0.0.1
 
+未经允许请勿发布该脚本和其衍生版本。
+允许在自己的蓝图中使用该脚本，但请说明注明脚本来源。
+https://github.com/ciguisuangai/SEScript_Pub/blob/master/InventoryLCD.cs
+
+使用说明：
+
 在需要显示内容的方块的自定义数据第一行填写InventoryLCD，从第二行开始填写指令，指令按顺序执行。
 运行指令 Refresh 进行刷新
+
+显示内容的颜色可以通过设置屏幕的文本和背景颜色更改
+
+若对应LCD的自定义数据会被其他脚本修改可能会造成冲突
 
 可用指令：
 
 	设定：
 
-		*在执行下一条相同指令之前将会保持设定结果
+		*在执行下一条相同指令设定之前将会保持设定结果
 
-		设定需要显示的屏幕（仅适用于有具有多个面板的方块）
+		设定需要显示的屏幕（并重置设定）（仅适用于具有多个屏幕的方块）
 			lcd,[编号]
 
 		缩放
@@ -23,11 +33,13 @@ InventoryLCD by 次硅酸钙
 		设定翻页时间间隔
 			settime,[数值]
 			
-		*注：为降低性能消耗此程序采用分步执行方法，需要处理的指令总数越多运行速度越慢，
-				请使用settime和setspd指令调节处理速度。
+		注：为降低性能消耗此程序采用分步执行方法，需要处理的指令总数越多运行速度越慢，
+			请使用settime和setspd指令调节处理速度。
 	
-		设定最大高度（仅影响item指令）
+		设定面板最大高度（仅影响item指令）
 			setheight,[数值>128]
+			
+			若设定太低可能导致程序出错
 	
 		注释
 			#,[内容]
@@ -72,7 +84,7 @@ settime,10
 scale,1.2
 #,显示所有方块库存中的矿石
 item,all,ore
-#,显示精炼厂的库存
+#,显示生产方块Refinery的库存
 item,Refinery
 #,设定缩放为0.8
 scale,0.8
@@ -80,10 +92,17 @@ scale,0.8
 remain2,Refinery
 #,显示所有方块的空间使用情况
 remain
+#,设定显示编号为1的lcd
+lcd,1
+#,显示所有库存
+item
 
 */
 		
-
+//Plan:
+//
+//Using MyIni to avoid 
+//
 //Arguments:
 //
 //	scale,value
@@ -117,7 +136,7 @@ remain
 //	remain2,which
 //		for production blocks
 //
-//Planning:
+//Planning Arguments:
 //	power,
 //		which
 //		total
@@ -138,6 +157,8 @@ remain
 //		kont
 //
 //	pos
+//
+//	mscroll
 //
 //
 
