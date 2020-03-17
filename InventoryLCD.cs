@@ -3,7 +3,7 @@ InventoryLCD by 次硅酸钙
 20-03-17 version 0.0.1
 
 未经允许请勿发布该脚本和其衍生版本。
-允许在自己的蓝图中使用该脚本，但请说明注明脚本来源。
+允许在自己的作品中使用该脚本，但请注明脚本来源。
 https://github.com/ciguisuangai/SEScript_Pub/blob/master/InventoryLCD.cs
 
 使用说明：
