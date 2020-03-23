@@ -493,20 +493,24 @@ class MyInvInfo : MyInfoBase
 			Color FGColorAlpha = new Color(FGColor.R, FGColor.G, FGColor.B, 32);
 			
 			GraphFunc.DoRectHollow(CurPX + 2, CurPY + 2, CurPX + SlotSize - 2, CurPY + SlotSize - 2, 2, FGColorAlpha);
-			GraphFunc.DoTexture($"{Item.Type}", CurPX + SlotSize/2f, CurPY + SlotSize/2f, SlotSize - 10, SlotSize - 10, Color.White);
+			GraphFunc.DoTexture($"{Item.Type}", CurPX + SlotSize/2f, CurPY + SlotSize/2f, SlotSize - 10, SlotSize - 10, FGColor);
 			
 			double Amount = Item.Amount;
 			
 			string AmountStr = "";
-			if (Amount > 1)
+			if (Amount > 100)
 				AmountStr = $"{Math.Round(Amount)}";
+			else if (Amount > 1)
+				AmountStr = $"{Math.Round(Amount, 2)}";
 
 			if (Item.TypeId == "MyObjectBuilder_Ore" || Item.TypeId == "MyObjectBuilder_Ingot")
 			{
 				var TypeStr = GetOreType(Item.SubtypeId);
 				GraphFunc.DoText(TypeStr, Scale*0.5f, "Debug", TextAlignment.LEFT, CurPX + 6, CurPY + 2*Scale, FGColor);
-				if (Amount >= 1000)
-					AmountStr = $"{Math.Round(Amount/1000f, 2)}k";
+				if (Amount >= 100000)
+					AmountStr = $"{Math.Round(Amount/1000f)}K";
+				else if (Amount >= 1000)
+					AmountStr = $"{Math.Round(Amount/1000f, 2)}K";
 			}
 			GraphFunc.DoText(AmountStr, Scale*0.5f, "Debug", TextAlignment.LEFT, CurPX + 6, CurPY + SlotSize - 18*Scale, FGColor);
 			
@@ -944,7 +948,6 @@ void DoMain()
 				Pos += InfoList[ArgIndex].Height;
 			}
 			#endregion
-			
 			#region DS_Next
 			ArgIndex ++ ;
 			
